@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb00d0b652d28141b12a88309e41709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slime: {fileID: 8344375179138622873, guid: 31a07ff4dd4ba5e4788c85206e90763d, type: 3}
+  slime: {fileID: 5207791803487493213, guid: 31a07ff4dd4ba5e4788c85206e90763d, type: 3}
 --- !u!4 &1579686126
 Transform:
   m_ObjectHideFlags: 0
@@ -658,6 +658,7 @@ GameObject:
   - component: {fileID: 1981619923}
   - component: {fileID: 1981619922}
   - component: {fileID: 1981619921}
+  - component: {fileID: 1981619924}
   m_Layer: 0
   m_Name: Despawner
   m_TagString: Despawn
@@ -777,6 +778,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1981619924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981619920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06980c3a62c337240bded2b6349bc694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

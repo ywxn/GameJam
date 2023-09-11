@@ -18,7 +18,7 @@ public class SlimeSpawner : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0) {
             Instantiate(slime, transform.position, transform.rotation);
-            timer = Random.Range(0, 1);
+            timer = Random.Range(0, 1) + 0.9f;
         }
     }
 }
