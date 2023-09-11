@@ -1,24 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SlimeSpawner : MonoBehaviour
+public class ScoreManager : MonoBehaviour
 {
-    float timer;
-    public GameObject slime;
     private bool isGameStarted = false;
     private float gameStartTime;
     private int score = 0;
+    public Text scoreText;
 
-    // Control how quickly the game speeds up.
-    public float initialSpawnRate = 1.0f;
-    public float minSpawnRate = 0.5f;
-    public float spawnRateDecreaseRate = 0.1f;
+    // Other variables and functions you may need...
 
     // Start is called before the first frame update
     void Start()
     {
-        timer = initialSpawnRate; // Set the initial spawn rate.
+        // Initialize any variables or UI elements here
+        scoreText.text = "Score: " + score;
     }
 
     // Update is called once per frame
@@ -33,13 +29,6 @@ public class SlimeSpawner : MonoBehaviour
         {
             UpdateScore();
         }
-
-        timer -= Time.deltaTime;
-        if (timer <= 0)
-        {
-            Instantiate(slime, transform.position, transform.rotation);
-            timer = Random.Range(0, 1f) + Mathf.Max(minSpawnRate, initialSpawnRate - spawnRateDecreaseRate * score) + 0.3f;
-        }
     }
 
     void StartGame()
@@ -52,5 +41,19 @@ public class SlimeSpawner : MonoBehaviour
     {
         // Calculate the score based on the time played
         score = Mathf.FloorToInt(Time.time - gameStartTime);
+
+        // Update the score text
+        scoreText.text = "Score: " + score;
     }
+    
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public bool IsGameStarted()
+    {
+        return isGameStarted;
+    }
+
 }
