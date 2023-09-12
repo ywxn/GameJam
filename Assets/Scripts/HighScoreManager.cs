@@ -19,14 +19,6 @@ public class HighScoreManager : MonoBehaviour
     {
         LoadHS();
     }
-    private void SaveHS()
-    {
-        using (StreamWriter writer = new StreamWriter(filePath))
-        {
-            writer.WriteLine(currentScore);
-        }
-
-    }
     private void LoadHS()
     {
         highScore = Int32.Parse(File.ReadAllText(filePath));
@@ -35,10 +27,6 @@ public class HighScoreManager : MonoBehaviour
     void Update()
     {
         currentScore = ScoreManager.GetScore();
-        if (currentScore > highScore)
-        {
-            SaveHS();
-        }
     }
     public void SubmitHS()
     {
@@ -46,6 +34,10 @@ public class HighScoreManager : MonoBehaviour
         using (StreamWriter writer = new StreamWriter(filePath_player))
         {
             writer.WriteLine(highScorePlayer);
+        }
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            writer.WriteLine(currentScore);
         }
         SceneManager.LoadScene("Title");
     }
