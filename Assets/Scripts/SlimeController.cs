@@ -53,11 +53,5 @@ public class SlimeController : MonoBehaviour
           spriteRenderer.sprite = frames[currentFrameIndex];
        }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            SceneManager.LoadScene("Title");
-        }
-    }
+    
 }

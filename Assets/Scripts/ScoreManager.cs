@@ -1,30 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System;
+using System.IO;
 
 public class ScoreManager : MonoBehaviour
 {
     private bool isGameStarted = false;
     private float gameStartTime;
-    private int score = 0;
+    private static int score = 0;
     public Text scoreText;
-
-    // Other variables and functions you may need...
+    public HighScoreManager highScoreManager;
+    private int highscore;
+    private string filePath = "C:/Users/jeanne/OneDrive - Whitman College/Documents/Git/GameJam/Assets/Misc/high_score.txt";
 
     // Start is called before the first frame update
     void Start()
     {
         // Initialize any variables or UI elements here
         scoreText.text = "Score: " + score;
+        highscore = Int32.Parse(File.ReadAllText(filePath));
+        StartGame();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isGameStarted)
-        {
-            StartGame();
-        }
-
         if (isGameStarted)
         {
             UpdateScore();
@@ -45,8 +46,7 @@ public class ScoreManager : MonoBehaviour
         // Update the score text
         scoreText.text = "Score: " + score;
     }
-    
-    public int GetScore()
+    public static int GetScore()
     {
         return score;
     }
@@ -54,6 +54,16 @@ public class ScoreManager : MonoBehaviour
     public bool IsGameStarted()
     {
         return isGameStarted;
+    }
+
+    public void SetGameStarted(bool gameover)
+    {
+        isGameStarted = gameover;
+    }
+
+    public int GetHighScore()
+    {
+        return highscore;
     }
 
 }

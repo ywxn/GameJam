@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
+
+    private AudioSource audioSource;
+    public AudioClip[] jumping;
     public Sprite[] run;
     public Sprite[] jumpUp;
     public Sprite[] jumpDown;
@@ -34,6 +38,7 @@ public class PlayerController : MonoBehaviour
     private float currentGravity;
 
     private ScoreManager scoreManager;
+    private HighScoreManager highScoreManager;
 
 
     // Start is called before the first frame update
@@ -44,7 +49,7 @@ public class PlayerController : MonoBehaviour
         currentFrameIndex = 0;
         rb = GetComponent<Rigidbody2D>();
         scoreManager = FindObjectOfType<ScoreManager>();
-
+        audioSource = GetComponent<AudioSource>();
         currentGravity = initialGravity; // Set the initial gravity.
         rb.gravityScale = currentGravity; // Apply the initial gravity to the player.
 
@@ -98,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        audioSource.PlayOneShot(jumping[Random.Range(0, 3)]);
         rb.velocity = new Vector2(rb.velocity.x,currentJumpForce);
         canJump = false;
     }
@@ -115,7 +121,7 @@ public class PlayerController : MonoBehaviour
         if (scoreManager != null)
         {
             // Get the current score from the ScoreManager
-            int score = scoreManager.GetScore();
+            int score = ScoreManager.GetScore();
 
             // Calculate the new jump force based on the score
             currentJumpForce = Mathf.Clamp(initialJumpForce + jumpForceIncreaseRate * score, initialJumpForce, maxJumpForce);
@@ -126,13 +132,26 @@ public class PlayerController : MonoBehaviour
         if (scoreManager != null)
         {
             // Get the current score from the ScoreManager
-            int score = scoreManager.GetScore();
+            int score = ScoreManager.GetScore();
 
             // Calculate the new gravity based on the score
             currentGravity = Mathf.Clamp(initialGravity + gravityIncreaseRate * score, initialGravity, maxGravity);
 
             // Apply the updated gravity to the player's rigidbody
             rb.gravityScale = currentGravity;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Slime"))
+        {
+            scoreManager.SetGameStarted(false);
+            if (scoreManager.GetHighScore() < ScoreManager.GetScore()){
+                SceneManager.LoadScene("ifHighScore");
+            } else
+            {
+                SceneManager.LoadScene("Title");
+            }
         }
     }
 }
